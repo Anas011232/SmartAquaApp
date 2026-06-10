@@ -2,30 +2,44 @@ import { View, Text, StyleSheet, Pressable } from "react-native";
 import { signOut } from "firebase/auth";
 import { auth } from "../../src/services/firebase";
 import { useAquaStore } from "../../src/store/aquaStore";
-import { useAquaRealtime } from "../../src/hooks/useRealtimeData";
+import { useRealtimeData } from "../../src/hooks/useRealtimeData";
+import { useSmartAlert } from "../../src/hooks/useSmartAlerts";
 import { useRouter } from "expo-router";
 
 export default function Dashboard() {
-  useAquaRealtime();
+  useRealtimeData();
+  useSmartAlert();
+
   const router = useRouter();
 
-  const { temp, ph, pumpStatus, minTemp, maxTemp, minPH, maxPH } =
-    useAquaStore();
-
-  const tempOk = temp >= minTemp && temp <= maxTemp;
-  const phOk = ph >= minPH && ph <= maxPH;
+  const {
+    temp,
+    ph,
+    pumpStatus,
+    minTemp,
+    maxTemp,
+    minPH,
+    maxPH,
+  } = useAquaStore();
 
   const handleLogout = async () => {
-    try {
-      await signOut(auth);
-      router.replace("/");
-    } catch (err) {
-      console.log("Logout error:", err);
-    }
+    await signOut(auth);
+    router.replace("/");
   };
+
+  const tempOk =
+    temp != null && minTemp != null && maxTemp != null
+      ? temp >= minTemp && temp <= maxTemp
+      : null;
+
+  const phOk =
+    ph != null && minPH != null && maxPH != null
+      ? ph >= minPH && ph <= maxPH
+      : null;
 
   return (
     <View style={styles.container}>
+      
       {/* HEADER */}
       <View style={styles.header}>
         <Text style={styles.title}>🌊 Smart Aqua Care</Text>
@@ -35,37 +49,53 @@ export default function Dashboard() {
         </Pressable>
       </View>
 
-      {/* CARDS */}
+      {/* TEMP */}
       <View style={styles.card}>
         <Text style={styles.label}>🌡 Temperature</Text>
-        <Text style={styles.value}>{temp}°C</Text>
-        <Text style={[styles.status, tempOk ? styles.ok : styles.bad]}>
-          {tempOk ? "✅ Normal" : "⚠️ Out of Range"}
+        <Text style={styles.value}>
+          {temp != null ? `${temp}°C` : "Loading..."}
         </Text>
+        {tempOk != null && (
+          <Text style={[styles.status, tempOk ? styles.ok : styles.bad]}>
+            {tempOk ? "✅ Normal" : "⚠️ Out of Range"}
+          </Text>
+        )}
       </View>
 
+      {/* PH */}
       <View style={styles.card}>
         <Text style={styles.label}>⚗️ pH Level</Text>
-        <Text style={styles.value}>{ph}</Text>
-        <Text style={[styles.status, phOk ? styles.ok : styles.bad]}>
-          {phOk ? "✅ Normal" : "⚠️ Out of Range"}
+        <Text style={styles.value}>
+          {ph != null ? ph : "Loading..."}
         </Text>
+        {phOk != null && (
+          <Text style={[styles.status, phOk ? styles.ok : styles.bad]}>
+            {phOk ? "✅ Normal" : "⚠️ Out of Range"}
+          </Text>
+        )}
       </View>
 
+      {/* PUMP */}
       <View style={styles.card}>
         <Text style={styles.label}>🚰 Pump Status</Text>
-        <Text style={styles.value}>{pumpStatus}</Text>
+        <Text style={styles.value}>
+          {pumpStatus ?? "Loading..."}
+        </Text>
       </View>
 
+      {/* SETTINGS */}
       <View style={styles.card}>
         <Text style={styles.label}>📊 Safe Range</Text>
+
         <Text style={styles.small}>
-          Temp: {minTemp} - {maxTemp} °C
+          Temp: {minTemp ?? "-"} - {maxTemp ?? "-"} °C
         </Text>
+
         <Text style={styles.small}>
-          pH: {minPH} - {maxPH}
+          pH: {minPH ?? "-"} - {maxPH ?? "-"}
         </Text>
       </View>
+
     </View>
   );
 }

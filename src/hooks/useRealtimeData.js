@@ -3,21 +3,21 @@ import { ref, onValue } from "firebase/database";
 import { db } from "../services/firebase";
 import { useAquaStore } from "../store/aquaStore";
 
-export const useAquaRealtime = () => {
+export function useRealtimeData() {
   const setStore = useAquaStore((s) => s.setStore);
 
   useEffect(() => {
-    const currentRef = ref(db, "/Current");
-    const settingsRef = ref(db, "/Settings");
+    const currentRef = ref(db, "Current");
+    const settingsRef = ref(db, "Settings");
 
     const unsub1 = onValue(currentRef, (snap) => {
       const data = snap.val();
       if (!data) return;
 
       setStore({
-        temp: data.Temp ?? 0,
-        ph: data.pH ?? 0,
-        pumpStatus: data.PumpStatus ?? "OFF",
+        temp: Number(data.Temp),
+        ph: Number(data.pH),
+        pumpStatus: data.PumpStatus,
       });
     });
 
@@ -26,10 +26,10 @@ export const useAquaRealtime = () => {
       if (!data) return;
 
       setStore({
-        minTemp: data.minTemp,
-        maxTemp: data.maxTemp,
-        minPH: data.minPH,
-        maxPH: data.maxPH,
+        minTemp: Number(data.minTemp),
+        maxTemp: Number(data.maxTemp),
+        minPH: Number(data.minPH),
+        maxPH: Number(data.maxPH),
       });
     });
 
@@ -38,4 +38,4 @@ export const useAquaRealtime = () => {
       unsub2();
     };
   }, []);
-};
+}
