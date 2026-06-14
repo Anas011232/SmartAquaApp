@@ -1,41 +1,118 @@
+// import { Tabs } from "expo-router";
+// import React from "react";
+// import { useNotifications } from "../../src/hooks/useNotifications";
+
+// export default function TabLayout() {
+//   return (
+//     <Tabs
+//       screenOptions={{
+//         headerShown: false,
+//         tabBarActiveTintColor: "#0ea5e9",
+//         tabBarStyle: {
+//           backgroundColor: "#0f172a",
+//         },
+//       }}
+//     >
+//       <Tabs.Screen
+//         name="dashboard"
+//         options={{ title: "Dashboard" }}
+//       />
+
+//       <Tabs.Screen
+//         name="settings"
+//         options={{ title: "Settings" }}
+//       />
+
+//       <Tabs.Screen
+//         name="notifications"
+//         options={{ title: "Alerts" }}
+//       />
+
+//       <Tabs.Screen
+//         name="history"
+//         options={{ title: "History" }}
+//       />
+
+//       <Tabs.Screen
+//         name="profile"
+//         options={{ title: "Profile" }}
+//       />
+//     </Tabs>
+//   );
+// }
+
 import { Tabs } from "expo-router";
 import React from "react";
-import { useNotifications } from "../../src/hooks/useNotifications";
+import { Platform } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
 
 export default function TabLayout() {
   return (
     <Tabs
       screenOptions={{
         headerShown: false,
-        tabBarActiveTintColor: "#0ea5e9",
+        tabBarActiveTintColor: "#38bdf8",
+        tabBarInactiveTintColor: "#334155",
         tabBarStyle: {
-          backgroundColor: "#0f172a",
+          backgroundColor: "#090d16",
+          borderTopWidth: 0.5,
+          borderTopColor: "rgba(56,189,248,0.15)",
+          height: Platform.OS === "ios" ? 82 : 64,
+          paddingBottom: Platform.OS === "ios" ? 24 : 10,
+          paddingTop: 10,
+          elevation: 0,
+        },
+        tabBarLabelStyle: {
+          fontSize: 10,
+          fontWeight: "600",
+          letterSpacing: 0.5,
         },
       }}
     >
       <Tabs.Screen
         name="dashboard"
-        options={{ title: "Dashboard" }}
+        options={{
+          title: "Dashboard",
+          tabBarIcon: ({ color }) => (
+            <Ionicons name="water-outline" size={22} color={color} />
+          ),
+        }}
       />
-
       <Tabs.Screen
         name="settings"
-        options={{ title: "Settings" }}
+        options={{
+          title: "Settings",
+          tabBarIcon: ({ color }) => (
+            <Ionicons name="settings-outline" size={22} color={color} />
+          ),
+        }}
       />
-
       <Tabs.Screen
         name="notifications"
-        options={{ title: "Alerts" }}
+        options={{
+          title: "Alerts",
+          tabBarIcon: ({ color }) => (
+            <Ionicons name="notifications-outline" size={22} color={color} />
+          ),
+        }}
       />
-
       <Tabs.Screen
         name="history"
-        options={{ title: "History" }}
+        options={{
+          title: "History",
+          tabBarIcon: ({ color }) => (
+            <Ionicons name="bar-chart-outline" size={22} color={color} />
+          ),
+        }}
       />
-
       <Tabs.Screen
         name="profile"
-        options={{ title: "Profile" }}
+        options={{
+          title: "Profile",
+          tabBarIcon: ({ color }) => (
+            <Ionicons name="person-outline" size={22} color={color} />
+          ),
+        }}
       />
     </Tabs>
   );
