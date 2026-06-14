@@ -10,32 +10,37 @@ export function useRealtimeData() {
     const currentRef = ref(db, "Current");
     const settingsRef = ref(db, "Settings");
 
-    const unsub1 = onValue(currentRef, (snap) => {
+    // ================= CURRENT DATA =================
+    const unsubCurrent = onValue(currentRef, (snap) => {
       const data = snap.val();
+
       if (!data) return;
 
       setStore({
-        temp: Number(data.Temp),
-        ph: Number(data.pH),
-        pumpStatus: data.PumpStatus,
+        temp: data.Temp ?? null,
+        ph: data.pH ?? null,
+        pumpStatus: data.PumpStatus ?? "OFF",
       });
     });
 
-    const unsub2 = onValue(settingsRef, (snap) => {
+    // ================= SETTINGS DATA =================
+    const unsubSettings = onValue(settingsRef, (snap) => {
       const data = snap.val();
+
       if (!data) return;
 
       setStore({
-        minTemp: Number(data.minTemp),
-        maxTemp: Number(data.maxTemp),
-        minPH: Number(data.minPH),
-        maxPH: Number(data.maxPH),
+        minTemp: data.minTemp ?? null,
+        maxTemp: data.maxTemp ?? null,
+        minPH: data.minPH ?? null,
+        maxPH: data.maxPH ?? null,
       });
     });
 
+    // ================= CLEANUP =================
     return () => {
-      unsub1();
-      unsub2();
+      unsubCurrent();
+      unsubSettings();
     };
   }, []);
 }
