@@ -251,18 +251,32 @@ export default function Register() {
   const avatarScale = useRef(new Animated.Value(1)).current;
   const avatarGlow = useRef(new Animated.Value(0)).current;
 
+  // const pulseAvatar = () => {
+
+  //   Animated.sequence([
+  //     Animated.parallel([
+  //       Animated.spring(avatarScale, { toValue: 0.93, useNativeDriver: true }),
+  //       Animated.timing(avatarGlow, { toValue: 1, duration: 150, useNativeDriver: false }),
+  //     ]),
+  //     Animated.parallel([
+  //       Animated.spring(avatarScale, { toValue: 1, useNativeDriver: true }),
+  //       Animated.timing(avatarGlow, { toValue: 0, duration: 300, useNativeDriver: false }),
+  //     ]),
+  //   ]).start();
+  // };
+
   const pulseAvatar = () => {
-    Animated.sequence([
-      Animated.parallel([
-        Animated.spring(avatarScale, { toValue: 0.93, useNativeDriver: true }),
-        Animated.timing(avatarGlow, { toValue: 1, duration: 150, useNativeDriver: false }),
-      ]),
-      Animated.parallel([
-        Animated.spring(avatarScale, { toValue: 1, useNativeDriver: true }),
-        Animated.timing(avatarGlow, { toValue: 0, duration: 300, useNativeDriver: false }),
-      ]),
-    ]).start();
-  };
+  Animated.sequence([
+    Animated.parallel([
+      Animated.spring(avatarScale, { toValue: 0.93, useNativeDriver: true }),
+      Animated.timing(avatarGlow, { toValue: 1, duration: 150, useNativeDriver: true }), // false থেকে true
+    ]),
+    Animated.parallel([
+      Animated.spring(avatarScale, { toValue: 1, useNativeDriver: true }),
+      Animated.timing(avatarGlow, { toValue: 0, duration: 300, useNativeDriver: true }), // false থেকে true
+    ]),
+  ]).start();
+};
 
   // ── Original pickImage (unchanged logic) ──
   const pickImage = async () => {
