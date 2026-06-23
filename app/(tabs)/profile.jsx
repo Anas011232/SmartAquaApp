@@ -399,34 +399,6 @@ export default function Profile() {
           />
         </View>
 
-        {/* ── Actions card ──
-        <View style={styles.sectionLabel}>
-          <Text style={styles.sectionLabelText}>Settings</Text>
-        </View> */}
-
-        {/* <View style={styles.actionsCard}>
-          <ActionRow
-            icon="person-outline"
-            label="Edit Profile"
-            color={COLORS.accent}
-            onPress={() => {}}
-          />
-          <View style={styles.divider} />
-          <ActionRow
-            icon="notifications-outline"
-            label="Notifications"
-            color={COLORS.accentLight}
-            onPress={() => {}}
-          />
-          <View style={styles.divider} />
-          <ActionRow
-            icon="shield-checkmark-outline"
-            label="Privacy & Security"
-            color={COLORS.success}
-            onPress={() => {}}
-          />
-        </View> */}
-
         {/* ── Logout ── */}
         <View style={styles.logoutSection}>
           <ActionRow
