@@ -58,7 +58,7 @@ export default function TabLayout() {
           borderTopWidth: 0.5,
           borderTopColor: "rgba(56,189,248,0.15)",
           height: Platform.OS === "ios" ? 82 : 64,
-          paddingBottom: Platform.OS === "ios" ? 24 : 10,
+          paddingBottom: Platform.OS === "ios" ? 24 : 75,
           paddingTop: 10,
           elevation: 0,
         },
@@ -87,7 +87,7 @@ export default function TabLayout() {
           ),
         }}
       />
-      <Tabs.Screen
+      {/* <Tabs.Screen
         name="notifications"
         options={{
           title: "Alerts",
@@ -95,7 +95,7 @@ export default function TabLayout() {
             <Ionicons name="notifications-outline" size={22} color={color} />
           ),
         }}
-      />
+      /> */}
       <Tabs.Screen
         name="history"
         options={{
