@@ -399,12 +399,12 @@ export default function Profile() {
           />
         </View>
 
-        {/* ── Actions card ── */}
+        {/* ── Actions card ──
         <View style={styles.sectionLabel}>
           <Text style={styles.sectionLabelText}>Settings</Text>
-        </View>
+        </View> */}
 
-        <View style={styles.actionsCard}>
+        {/* <View style={styles.actionsCard}>
           <ActionRow
             icon="person-outline"
             label="Edit Profile"
@@ -425,7 +425,7 @@ export default function Profile() {
             color={COLORS.success}
             onPress={() => {}}
           />
-        </View>
+        </View> */}
 
         {/* ── Logout ── */}
         <View style={styles.logoutSection}>
