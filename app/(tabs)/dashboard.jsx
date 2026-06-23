@@ -79,12 +79,12 @@ export default function Dashboard() {
         <Text style={styles.label}>🚰  PUMP STATUS</Text>
         <View style={styles.pumpRow}>
           <Text style={styles.pumpName}>{pumpStatus ?? "Loading..."}</Text>
-          {pumpStatus && (
+          {/* {pumpStatus && (
             <View style={styles.pumpBadge}>
               <View style={styles.pumpDot} />
               <Text style={styles.pumpBadgeText}>Running</Text>
             </View>
-          )}
+          )} */}
         </View>
       </View>
 
